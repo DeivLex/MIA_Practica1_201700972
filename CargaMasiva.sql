@@ -1,8 +1,14 @@
 USE Practica1;
 /* Crear tablas temporales */
+CREATE TEMPORARY TABLE Ubicacion (
+
+	location_type_code varchar(255),
+    location_type_name varchar(255)
+);
+
 CREATE TEMPORARY TABLE GeoNombres (
 
-    geomane_id varchar(255),
+    geoname_id varchar(255),
     place_name varchar(255),
     latitude varchar(255),
     longitude varchar(255),
@@ -12,17 +18,6 @@ CREATE TEMPORARY TABLE GeoNombres (
     gazetteer_adm_name varchar(255),
     location_class varchar(255),
     geographic_exactness varchar(255)
-);
-
-CREATE TEMPORARY TABLE Nivel (
-
-    project_id varchar(255),
-    project_location_id varchar(255),
-    geoname_id varchar(255),
-    transactions_start_year varchar(255),
-    transactions_end_year varchar(255),
-    even_split_commitments varchar(255),
-    even_split_disbursements varchar(255)
 );
 
 CREATE TEMPORARY TABLE Proyectos (
@@ -45,6 +40,17 @@ CREATE TEMPORARY TABLE Proyectos (
     total_disbursements varchar(255)
 );
 
+CREATE TEMPORARY TABLE Nivel (
+
+    project_id varchar(255),
+    project_location_id varchar(255),
+    geoname_id varchar(255),
+    transactions_start_year varchar(255),
+    transactions_end_year varchar(255),
+    even_split_commitments varchar(255),
+    even_split_disbursements varchar(255)
+);
+
 CREATE TEMPORARY TABLE Transacciones (
 
 	transaction_id varchar(255),
@@ -54,12 +60,6 @@ CREATE TEMPORARY TABLE Transacciones (
     transaction_value_code varchar(255),
     transaction_currency varchar(255),
     transaction_value varchar(255)
-);
-
-CREATE TEMPORARY TABLE Ubicacion (
-
-	location_type_code varchar(255),
-    location_type_name varchar(255)
 );
 
 CREATE TEMPORARY TABLE CodigoPais (
@@ -84,15 +84,14 @@ CREATE TEMPORARY TABLE CodigoPais (
     name_wb_code varchar(255)
 );
 
-
-LOAD DATA LOCAL INFILE '/home/davis/Descargas/ArchivosCSV/geonames.csv'
-INTO TABLE GeoNombres
-FIELDS TERMINATED BY ','
+LOAD DATA LOCAL INFILE '/home/davis/Descargas/ArchivosCSV/locations.csv'
+INTO TABLE Ubicacion
+FIELDS TERMINATED BY '\t'
 LINES TERMINATED BY '\n'
 IGNORE 1 rows;
 
-LOAD DATA LOCAL INFILE '/home/davis/Descargas/ArchivosCSV/level_1a.csv'
-INTO TABLE Nivel
+LOAD DATA LOCAL INFILE '/home/davis/Descargas/ArchivosCSV/geonames.csv'
+INTO TABLE GeoNombres
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 IGNORE 1 rows;
@@ -103,15 +102,15 @@ FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 IGNORE 1 rows;
 
-LOAD DATA LOCAL INFILE '/home/davis/Descargas/ArchivosCSV/transactions.csv'
-INTO TABLE Transacciones
+LOAD DATA LOCAL INFILE '/home/davis/Descargas/ArchivosCSV/level_1a.csv'
+INTO TABLE Nivel
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 IGNORE 1 rows;
 
-LOAD DATA LOCAL INFILE '/home/davis/Descargas/ArchivosCSV/locations.csv'
-INTO TABLE Ubicacion
-FIELDS TERMINATED BY '\t'
+LOAD DATA LOCAL INFILE '/home/davis/Descargas/ArchivosCSV/transactions.csv'
+INTO TABLE Transacciones
+FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 IGNORE 1 rows;
 
@@ -121,4 +120,4 @@ FIELDS TERMINATED BY '\t'
 LINES TERMINATED BY '\n'
 IGNORE 1 rows;
 
-select * from CodigoPais;
+select * from Ubicacion;
