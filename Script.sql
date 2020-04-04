@@ -2,7 +2,7 @@ USE Practica1;
 
 CREATE TABLE Currency (
   currency_id INT(11) NOT NULL AUTO_INCREMENT,
-  currency_description INT(11) NULL,
+  currency_description VARCHAR(255) NULL,
   PRIMARY KEY (currency_id));
 
 CREATE TABLE Type_Status (
@@ -13,30 +13,38 @@ CREATE TABLE Type_Status (
 CREATE TABLE Country_Code (
   country_id INT(11) NOT NULL AUTO_INCREMENT,
   name VARCHAR(255) NULL,
-  iso2 VARCHAR(255) NULL,
+  iso2 VARCHAR(255) NULL,	
   name_aiddata_code VARCHAR(255) NULL,
+  name_aiddata_name VARCHAR(255) NULL,
   name_cow_alpha VARCHAR(255) NULL,
   name_cow_numeric VARCHAR(255) NULL,
-  name_fao_code VARCHAR(255) NULL,
+  name_fao_code VARCHAR(255) NULL,	
   name_fips VARCHAR(255) NULL,
-  name_geoname_id VARCHAR(255) NULL,
+  name_geonames_id VARCHAR(255) NULL,
   name_imf_code VARCHAR(255) NULL,
+  name_iso2 VARCHAR(255) NULL,
+  name_iso3 VARCHAR(255) NULL,
+  name_iso_numeric VARCHAR(255) NULL,
+  name_oecd_code VARCHAR(255) NULL,
+  name_oecd_name VARCHAR(255) NULL,
+  name_un_code VARCHAR(255) NULL,
+  name_wb_code VARCHAR(255) NULL,
   PRIMARY KEY (country_id));
 
 CREATE TABLE Project (
   project_id INT(11) NOT NULL AUTO_INCREMENT,
   is_geocode INT(11) NULL,
   project_tittle VARCHAR(255) NULL,
-  start_actual_isodate DATE NULL,
-  end_actual_isodate DATE NULL,
+  start_actual_isodate VARCHAR(255) NULL,
+  end_actual_isodate VARCHAR(255) NULL,
   donors VARCHAR(255) NULL,
   donors_iso3 VARCHAR(255) NULL,
   ad_sector_codes VARCHAR(255) NULL,
   ad_sector_names VARCHAR(255) NULL,
   transaction_start_year INT(11) NULL,
   transaction_end_year INT(11) NULL,
-  total_commitments FLOAT NULL,
-  total_disbuments FLOAT NULL,
+  total_commitments VARCHAR(255) NULL,
+  total_disbuments VARCHAR(255) NULL,
   project_code VARCHAR(255) NULL,
   Type_Status_id_status INT(11) NOT NULL,
   Country_Code_country_id INT(11) NOT NULL,
@@ -54,14 +62,13 @@ CREATE TABLE Project (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-
 CREATE TABLE Transaction (
   transaction_id INT(11) NOT NULL AUTO_INCREMENT,
   transaction_code VARCHAR(255) NULL,
-  transaction_isodate DATE NULL,
+  transaction_isodate VARCHAR(255) NULL,
   transaction_year INT(11) NULL,
   transaction_value_code VARCHAR(255) NULL,
-  transaction_value INT(11) NULL,
+  transaction_value VARCHAR(255) NULL,
   Currency_currency_id INT(11) NOT NULL,
   Project_project_id INT(11) NOT NULL,
   PRIMARY KEY (transaction_id, Currency_currency_id, Project_project_id),
@@ -85,7 +92,8 @@ CREATE TABLE Location (
   PRIMARY KEY (location_id));
 
 CREATE TABLE Geoname (
-  geoname_id INT(11) NOT NULL,
+  geoname_id INT(11) NOT NULL AUTO_INCREMENT,
+  geoname_int INT(11) NULL,
   place_name VARCHAR(255) NULL,
   latitudes FLOAT NULL,
   longitude FLOAT NULL,
@@ -107,8 +115,8 @@ CREATE TABLE Level_1A (
   project_geoname_id VARCHAR(255) NULL,
   transaction_start_year INT(11) NULL,
   transaction_end_year INT(11) NULL,
-  even_split_commitments FLOAT NULL,
-  even_split_disbursement FLOAT NULL,
+  even_split_commitments VARCHAR(255) NULL,
+  even_split_disbursement VARCHAR(255) NULL,
   Geoname_geoname_id INT(11) NOT NULL,
   Project_project_id INT(11) NOT NULL,
   PRIMARY KEY (level_id, Geoname_geoname_id, Project_project_id),
